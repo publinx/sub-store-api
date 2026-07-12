@@ -1,0 +1,15 @@
+assert_lefthook_installed: true
+glob_matcher: doublestar
+
+commit-msg:
+  jobs:
+    - name: commitlint
+      run: npx --no-install commitlint --edit
+
+pre-commit:
+  parallel: false
+  jobs:
+    - name: prettier
+      run: npx prettier {staged_files} --write --ignore-unknown
+      glob: "**/*.*"
+      stage_fixed: true
