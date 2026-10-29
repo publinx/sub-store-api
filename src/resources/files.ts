@@ -25,6 +25,8 @@ export type SubStoreFile = ResourceBase & {
   includeUnsupportedProxy?: boolean;
   mode?: string;
   download?: boolean;
+  noCache?: boolean;
+  noFlow?: boolean;
   subInfoUrl?: string;
   subInfoUserAgent?: string;
 };
@@ -46,6 +48,7 @@ export type FileRenderQuery = {
   mode?: string;
   proxy?: string;
   noCache?: true;
+  noFlow?: true;
   produceType?: ProduceType;
   download?: true;
   fakeFile?: true;

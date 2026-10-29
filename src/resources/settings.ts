@@ -1,6 +1,7 @@
 import type { AxiosInstance } from "axios";
 import type { ApiSuccess } from "../types";
 
+export type GistDownloadTokenStrategy = "ask" | "overwrite" | "keep";
 export type GistUploadEncoding = "base64" | "plaintext" | "age";
 export type AppearanceSettings = {
   createItemPosition?: "top" | "bottom";
@@ -11,6 +12,7 @@ export type Settings = {
   gistToken?: string;
   syncPlatform?: "gitlab" | (string & {});
   gistUpload?: GistUploadEncoding;
+  gistDownloadTokenStrategy?: GistDownloadTokenStrategy;
   "age-secret-key"?: string;
   githubUser?: string;
   githubProxy?: string;

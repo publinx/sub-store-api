@@ -13,7 +13,10 @@ export type NodeInfo = { shareUrl?: string; info: JsonObject };
 export type AgeKeyPair = { type: AgeKeyType; "age-secret-key": string; "age-public-key": string };
 export type BackupEncoding = "base64" | "plaintext" | "age";
 export type BackupOptions = { encode?: BackupEncoding };
-export type DownloadBackupOptions = BackupOptions & { keep?: string };
+export type DownloadBackupOptions = BackupOptions & {
+  keep?: string;
+  tokenStrategy?: "overwrite" | "keep";
+};
 export type EnvironmentOptions = { share?: true };
 export type NodeInfoOptions = { language?: string };
 export const createUtilitiesApi = (instance: AxiosInstance) => {

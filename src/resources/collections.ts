@@ -13,6 +13,8 @@ export type Collection = ResourceBase & {
   proxy?: string;
   ignoreFailedRemoteSub?: IgnoreFailedRemoteSubMode;
   firstSubFlow?: boolean;
+  noCache?: boolean;
+  noFlow?: boolean;
   subUserinfo?: string;
 };
 export type CollectionUpdate = Partial<Omit<Collection, "process">> & { process?: ProcessItem[] };

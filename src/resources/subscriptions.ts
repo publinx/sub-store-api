@@ -20,12 +20,13 @@ export type Subscription = ResourceBase & {
   ignoreFailedRemoteSub?: IgnoreFailedRemoteSubMode;
   passThroughUA?: boolean;
   noCache?: boolean;
+  noFlow?: boolean;
   subUserinfo?: string;
 };
 export type SubscriptionUpdate = Partial<
   Omit<Subscription, "process" | "editorLanguage" | "previewLanguage">
 > & { process?: ProcessItem[]; editorLanguage?: EditorLanguage; previewLanguage?: EditorLanguage };
-export type FlowQuery = { url?: string };
+export type FlowQuery = { url?: string; noFlow?: boolean };
 export const createSubscriptionsApi = (instance: AxiosInstance) => {
   return {
     list: () => instance.get<ApiSuccess<Subscription[]>>("/api/subs"),

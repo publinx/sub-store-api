@@ -2,7 +2,7 @@ import type { AxiosInstance } from "axios";
 import type { AgePublicKeyConfig, ApiSuccess, DeleteMode } from "../types";
 
 export type ShareType = "sub" | "col" | "file";
-export type DurationUnit = "day" | "month" | "season" | "year";
+export type DurationUnit = "day" | "month" | "season" | "year" | "lifetime";
 export type ShareTokenPayload = AgePublicKeyConfig & {
   type: ShareType;
   name: string;
@@ -16,6 +16,12 @@ export type DurationTokenOptions = DurationDisplay & {
   mode: "duration";
   expiresIn: string | number;
 };
+export type LifetimeTokenOptions = {
+  mode: "duration";
+  expiresUnit: "lifetime";
+  expiresIn?: never;
+  expiresValue?: never;
+};
 export type DatetimeTokenOptions = { mode: "datetime"; exp: number };
 export type CountTokenOptions = { mode: "count"; count: number; usedCount?: number };
 export type PermanentTokenOptions = { mode?: undefined; expiresIn?: undefined; exp?: undefined };
@@ -26,6 +32,7 @@ export type LegacyDurationTokenOptions = DurationDisplay & {
 export type LegacyDatetimeTokenOptions = { mode?: undefined; expiresIn?: undefined; exp: number };
 export type ShareTokenOptions =
   | DurationTokenOptions
+  | LifetimeTokenOptions
   | DatetimeTokenOptions
   | CountTokenOptions
   | PermanentTokenOptions

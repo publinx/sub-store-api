@@ -147,7 +147,7 @@ export type ProcessItem = ProcessItemBase &
           provider: "Custom" | "Google" | "IP-API" | "Cloudflare" | "Ali" | "Tencent";
           type?: "IPv4" | "IPv6" | "IP4P";
           filter?: string;
-          cache?: boolean;
+          cache?: boolean | "disabled" | "enabled";
           url?: string;
           tlsSkipCertVerify?: boolean | "enabled";
           timeout?: number;

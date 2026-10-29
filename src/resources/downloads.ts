@@ -8,7 +8,6 @@ import type {
 } from "../types";
 import type { FileRenderQuery } from "./files";
 
-export type ResultFormat = "nezha" | "nezha-monitor";
 export type CommonDownloadQuery = {
   platform?: ProxyTarget;
   produceType?: ProduceType;
@@ -17,8 +16,8 @@ export type CommonDownloadQuery = {
   "pretty-yaml"?: true;
   proxy?: string;
   noCache?: true;
+  noFlow?: true;
   ignoreFailedRemoteSub?: Exclude<IgnoreFailedRemoteSubMode, false>;
-  resultFormat?: ResultFormat;
   $options?: RuntimeOptions;
   mihomoExternal?: string;
   mihomoMerge?: true;
@@ -38,6 +37,7 @@ export type FileShareOptions = Pick<
   | "ua"
   | "proxy"
   | "noCache"
+  | "noFlow"
   | "produceType"
   | "download"
   | "$options"
@@ -61,8 +61,6 @@ export type ShareResourceRequest = {
   options?: ShareDownloadQuery;
 };
 export type ShareFileRequest = { name: string; options?: FileShareOptions };
-export type NezhaMonitorRequest = { name: string; index: string | number; count?: number };
-export type NezhaResult<T = unknown> = { code: number; message: string; result: T[] };
 const targetPath = (base: string, target?: ProxyTarget) => {
   return target === undefined ? base : `${base}/${encodeURIComponent(target)}`;
 };
@@ -95,22 +93,6 @@ export const createDownloadsApi = (instance: AxiosInstance) => {
     sharedFile: ({ name, options }: ShareFileRequest) => {
       const path = `/share/file/${encodeURIComponent(name)}`;
       return instance.get<string>(path, { params: options });
-    },
-    subscriptionDetails: <T = unknown>({ name }: { name: string }) => {
-      const path = `/download/${encodeURIComponent(name)}/api/v1/server/details`;
-      return instance.get<NezhaResult<T>>(path);
-    },
-    collectionDetails: <T = unknown>({ name }: { name: string }) => {
-      const path = `/download/collection/${encodeURIComponent(name)}/api/v1/server/details`;
-      return instance.get<NezhaResult<T>>(path);
-    },
-    subscriptionMonitor: <T = unknown>({ name, index, count }: NezhaMonitorRequest) => {
-      const path = `/download/${encodeURIComponent(name)}/api/v1/monitor/${encodeURIComponent(String(index))}`;
-      return instance.get<NezhaResult<T>>(path, { params: { number: count } });
-    },
-    collectionMonitor: <T = unknown>({ name, index, count }: NezhaMonitorRequest) => {
-      const path = `/download/collection/${encodeURIComponent(name)}/api/v1/monitor/${encodeURIComponent(String(index))}`;
-      return instance.get<NezhaResult<T>>(path, { params: { number: count } });
     }
   };
 };
